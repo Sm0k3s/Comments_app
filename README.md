@@ -28,4 +28,4 @@
     - Admins can edit any comments
     - Admins can delete any comments
 
-### \_Comments contain a reference to the User who created it (author)
+### _Comments contain a reference to the User who created it (author)_
