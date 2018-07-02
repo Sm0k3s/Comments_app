@@ -11,7 +11,7 @@ class User:
         self.password = password
         user = utils.query_db(con, queries.add_user, (username, password))
         id = user[0]['id']
-        role = utils.query_db(con, queries.add_previledge, (id, password))
+        role = utils.query_db(con, queries.add_previledge, (id, role))
 
     #
     # def edit_user(self, username, password):
@@ -28,8 +28,9 @@ class User:
         return user
 
     @staticmethod
-    def user(username, password):
+    def user_login(username, password):
         user = utils.query_db(con, queries.user_login, (username, password))
         if len(user) != 1:
+            print("user not logged in")
             return
         return user
