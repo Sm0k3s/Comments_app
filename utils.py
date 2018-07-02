@@ -3,6 +3,14 @@ from psycopg2.extensions import ISOLATION_LEVEL_AUTOCOMMIT
 from psycopg2.extras import RealDictCursor
 
 
+def connect_db(db_name, user, password):
+    try:
+        conn = psycopg2.connect(database=db_name, user=user, password=password)
+        return conn
+    except Exception:
+        raise psycopg2.DatabaseError
+
+
 def close(cursor, connection):
     cursor.close()
     connection.close()
