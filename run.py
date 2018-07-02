@@ -1,39 +1,69 @@
+import os
 import click
 
-
-def signup(record = None, data=None):
-    pass
-
-
-def auth_login():
-    pass
+from users.users import User
+from comments.comments import Comments
 
 
-def login(record = None, data=None):
-    pass
+def signup(username, password, role = None, *args, **kwargs):
+    user_obj = User(username, password, role)
+    print('Account created : username {}, password: {} '.format(user_obj.username, user_obj.password))
 
 
-def logout(record = None, data=None):
-    pass
+def require_login(fn):
+    def inner(*args, **kwargs):
+        try:
+            user = User.get_user(os.environ['user_id'])
+        except Exception:
+            print('You are not logged in')
+
+        return fn(*args, **kwargs)
+
+    return inner
 
 
-def create_comment(record = None, data=None):
-    pass
+def login(username, password, *args, **kwargs):
+    user = User.get_user(username)
+    if user.password == password:
+        os.environ['username'] = user.username
+        os.environ['user_id'] = user.id
+    else:
+        print('Invalid login credentials')
 
 
-def edit_comment(record = None, data=None):
-    pass
+@require_login
+def logout(*args, **kwargs):
+    os.environ.pop('username')
+    os.environ.pop('user_id')
+    print('Logged out')
 
 
-def list_comments(record = None, data=None):
-    pass
+@require_login
+def create_comment(author_id, text, parent_id, *args, **kwargs):
+    comment = Comments(author_id, text, parent_id)
+    print('Comment created: Text: {}\nComment id: {}'.format(comment.text, comment.id))
 
 
-def delete(record = None, data=None):
-    pass
+@require_login
+def edit_comment(comment_id, text, *args, **kwargs):
+    new_comment = Comments.edit(comment_id, text)
+    print('Comment updated: \nText: {}\nComment id: {}'.format(new_comment.text, new_comment.id))
 
 
-def reset_priviledge(record = None, data=None):
+@require_login
+def list_comments(*args, **kwargs):
+    all_comments = Comments.list_comments()
+    for comment in all_comments:
+        print('Id: {}, Text: {}'.format(comment.id, comment.text))
+
+
+@require_login
+def delete(comment_id, *args, **kwargs):
+    Comments.delete(comment_id)
+
+
+@require_login
+def reset_priviledge(*args, **kwargs):
     pass
 
 
@@ -51,11 +81,19 @@ commands = {
 
 @click.command()
 @click.option('--record')
+@click.option('--author_id')
+@click.option('--parent_id')
+@click.option('--text')
+@click.option('--comment_id')
 @click.option('--data')
+@click.option('--username')
+@click.option('--password')
 @click.argument('cmdl')
-def execute(cmdl, record, data):
+def execute(cmdl, record = None, data = None, username = None, password=None,
+            author_id = None, parent_id=None, text=None, comment_id=None):
     try:
-        commands[cmdl](record = record, data=data)
+        commands[cmdl](record = record, data=data, username = username, password=password,
+                       comment_id = comment_id, text = text, parent_id =parent_id, author_id=author_id)
     except KeyError:
         print('Unknown command')
 
