@@ -1,40 +1,28 @@
-import datetime
+from _datetime import datetime
 import psycopg2
-''' comments class '''
 
 
 class Comments:
-    def __init__(self, author, text):
+    def __init__(self, author, text, parent_id=None):
         self.author = author
         self.text = text
-        self.timestamp = datetime.now()
+        self.parent_id = parent_id
 
-    ''' create a comment '''
 
-    def validate_message(self, message):
-        return type(message) != str:
+    @staticmethod
+    def list_comments():
+        pass
 
-    def create(self, message):
-        if self.validate_message(message):
-            print('Enter valid message')
-        try:
-            pass
-        except:
-            pass
+    @staticmethod
+    def get_comment(comment_id):
+        pass
 
-    ''' edit an existing commet '''
+    @staticmethod
+    def edit(comment_id, message):
+        pass
 
-    def edit(self, message):
-        if self.validate_message(message):
-            print('Enter valid message')
-
-        try:
-            pass
-        except:
-            pass
-    ''' delete an existing comment '''
-
-    def delete(self, id):
+    @staticmethod
+    def delete(comment_id):
         if type(id) != int:
             print('Enter a valid id')
         try:

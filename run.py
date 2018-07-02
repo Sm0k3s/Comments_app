@@ -5,6 +5,10 @@ def signup(record = None, data=None):
     pass
 
 
+def auth_login():
+    pass
+
+
 def login(record = None, data=None):
     pass
 

@@ -2,64 +2,21 @@
 
 
 class User:
-    def __init__(self, username, password):
+    def __init__(self, username, password, role='User'):
         self.username = username
         self.password = password
 
-    def edit_comment(self, id):
-        if self.validate_id(id):
-            print('Enter a valid id')
-
-    def validate_id(self):
-        return if type(id) != int:
-
-
-''' Moderators class'''
-
-
-class Moderator(User):
-    def __init__(self):
+    def edit_user(self, username, password):
         pass
 
-    def edit_comment(self, id):
-        if self.validate_id(id):
-            print('Enter a valid id')
+    @staticmethod
+    def list_users():
+        pass
 
-        try:
-            pass
-        except:
-            pass
-
-    def delete_comment(self, id):
-        if self.validate_id(id):
-            print('Enter a valid id')
-        try:
-            pass
-        except:
-            pass
+    @staticmethod
+    def get_user():
+        pass
 
 
-class Admin(User):
-    def __init__(self):
-        try:
-            pass
-        except:
-            pass
 
-    def edit_comment(self, id):
-        if self.validate_id(id):
-            print('Enter a valid id')
 
-        try:
-            pass
-        except:
-            pass
-
-    def delete_comment(self, id):
-        if self.validate_id(id):
-            print('Enter a valid id')
-
-        try:
-            pass
-        except:
-            pass
