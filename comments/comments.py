@@ -17,17 +17,27 @@ class Comments:
     def create(self, message):
         if self.validate_message(message):
             print('Enter valid message')
-        pass
+        try:
+            pass
+        except:
+            pass
 
     ''' edit an existing commet '''
 
     def edit(self, message):
         if self.validate_message(message):
             print('Enter valid message')
-        pass
+
+        try:
+            pass
+        except:
+            pass
     ''' delete an existing comment '''
 
     def delete(self, id):
         if type(id) != int:
             print('Enter a valid id')
-        pass
+        try:
+            pass
+        except:
+            pass

@@ -41,7 +41,10 @@ class Moderator(User):
 
 class Admin(User):
     def __init__(self):
-        pass
+        try:
+            pass
+        except:
+            pass
 
     def edit_comment(self, id):
         if self.validate_id(id):
