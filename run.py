@@ -7,7 +7,7 @@ from comments.comments import Comments
 
 def signup(username, password, role = None, *args, **kwargs):
     user_obj = User(username, password, role)
-    print('Account created : username {}, password: {} '.format(user_obj.username, user_obj.password))
+    print('Account created : username {} '.format(user_obj.username))
 
 
 def require_login(fn):
@@ -27,14 +27,16 @@ def login(username, password, *args, **kwargs):
     if user.password == password:
         os.environ['username'] = user.username
         os.environ['user_id'] = user.id
+        print('Logged in')
     else:
         print('Invalid login credentials')
 
 
 @require_login
 def logout(*args, **kwargs):
-    os.environ.pop('username')
-    os.environ.pop('user_id')
+    if os.environ.get('username') and os.environ.get('user_id'):
+        os.environ.pop('username')
+        os.environ.pop('user_id')
     print('Logged out')
 
 
